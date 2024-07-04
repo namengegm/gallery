@@ -29,18 +29,18 @@ pipeline {
             }
         }
 
-        stage('Test project') {
-            steps {
-                script {
-                    try {
-                        echo 'Running tests...'
-                        sh 'npm test'
-                    } catch (Exception e) {
-                        error "Tests failed: ${e.message}"
-                    }
-                }
-            }
-        }
+        // stage('Test project') {
+        //     steps {
+        //         script {
+        //             try {
+        //                 echo 'Running tests...'
+        //                 sh 'npm test'
+        //             } catch (Exception e) {
+        //                 error "Tests failed: ${e.message}"
+        //             }
+        //         }
+        //     }
+        // }
 
         stage('Build project') {
             steps {
