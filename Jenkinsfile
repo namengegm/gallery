@@ -30,8 +30,7 @@ pipeline {
             steps {
                 script {
                         echo 'Starting server...'
-                        sh 'node server &'
-                        sleep 10 // Give time for the server to start
+                        sh 'node server'
                     }
                 }
                     }
