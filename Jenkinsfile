@@ -16,6 +16,7 @@ pipeline {
                 git branch: 'master', url: 'https://github.com/namengegm/gallery.git'
             }
         }
+    }
 
         stage('Install dependencies') {
             steps {
@@ -24,8 +25,6 @@ pipeline {
                     } 
                 }
             }
-        }
-
 
         stage('Start server') {
             steps {
@@ -35,5 +34,5 @@ pipeline {
                         sleep 10 // Give time for the server to start
                     }
                 }
-            }
+                    }
 }
