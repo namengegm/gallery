@@ -2,14 +2,14 @@ pipeline {
     agent any
 
     tools {
-        nodejs 'NodeJS 22.3.0' // Use the name you configured in the Global Tool Configuration
+        nodejs 'NodeJS 22.4.0' // Use the name you configured in the Global Tool Configuration
     }
     environment {
         RENDER_APP_NAME = 'gallery' // Replace with your Render application name
-        RENDER_LINK = 'https://gallery-95mu.onrender.com/' // Replace with your Render application link
+        RENDER_LINK = 'https://gallery-ncn3.onrender.com' // Replace with your Render application link
         SLACK_CHANNEL = 'ianip1' // Replace with your Slack channel
         SLACK_CREDENTIALS_ID = '7UT8vmhodgwdjeDPLPyd4RI3' // Ensure this matches your Jenkins credentials ID
-        EMAIL_RECIPIENT = 'mbuguaian32@gmail.com' // Replace with your email recipient or ensure it's set in Jenkins
+        EMAIL_RECIPIENT = 'namenge.gm@gmail.com' // Replace with your email recipient or ensure it's set in Jenkins
     }
 
     triggers {
@@ -74,4 +74,5 @@ pipeline {
                 }
             }
         }
-
+    }
+}
