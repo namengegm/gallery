@@ -1,37 +1,29 @@
-pipeline {
-    agent any
-
-    tools {
-        nodejs 'NodeJS 22.4.0' // Use the name you configured in the Global Tool Configuration
+pipeline { 
+  agent any
+  tools { 
+    gradle "Gradle-6"
+  }
+  stages { 
+    stage('clone repository') {
+      steps { 
+        git 'git@github.com:namengegm/gallery.git
+      }
     }
-
-
-    triggers {
-        pollSCM('H/2 * * * *') // Polls the SCM every 2 minutes
+    stage('Build the project') {
+      steps { 
+        sh 'gradle build'
+      }
     }
-
-    stages {
-        stage("Clone gallery repository") {
-            steps {
-                git branch: 'master', url: 'https://github.com/namengegm/gallery.git'
-            }
-        }
+    stage('Tests') {
+      steps { 
+        sh 'gradle test'
+      }
     }
-
-        stage('Install dependencies') {
-            steps {
-                script {
-                    sh 'npm install'
-                    } 
-                }
-            }
-
-        stage('Start server') {
-            steps {
-                script {
-                        echo 'Starting server...'
-                        sh 'node server'
-                    }
-                }
-                    }
+  }
 }
+
+
+
+
+
+
