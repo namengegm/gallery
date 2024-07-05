@@ -6,7 +6,7 @@ pipeline {
   stages { 
     stage('clone repository') {
       steps { 
-        git 'git@github.com:namengegm/gallery.git
+        git 'git@github.com:namengegm/gallery.git'
       }
     }
     stage('Build the project') {
