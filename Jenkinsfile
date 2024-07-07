@@ -40,7 +40,7 @@ pollSCM('0 */4 * * 1-5')
   stages { 
     stage('clone repository') {
       steps { 
-        gitgit branch: 'master', url: 'https://github.com/namengegm/gallery'
+        git branch: 'master', url: 'https://github.com/namengegm/gallery.git'
       }
     }
  stage('Install dependencies') {
