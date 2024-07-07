@@ -56,18 +56,18 @@ pollSCM('0 */4 * * 1-5')
             }
         }
 
-        // stage('Test project') {
-        //     steps {
-        //         script {
-        //             try {
-        //                 echo 'Running tests...'
-        //                 sh 'npm test'
-        //             } catch (Exception e) {
-        //                 error "Tests failed: ${e.message}"
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Test project') {
+            steps {
+                script {
+                    try {
+                        echo 'Running tests...'
+                        sh 'npm test'
+                    } catch (Exception e) {
+                         error "Tests failed: ${e.message}"
+                     }
+                }
+             }
+        }
 
         stage('Build project') {
             steps {
@@ -82,39 +82,122 @@ pollSCM('0 */4 * * 1-5')
             }
         }
 
-        // stage('Start server') {
-        //     steps {
-        //         script {
-        //             try {
-        //                 echo 'Starting server...'
-        //                 sh 'npm start &'
-        //                 sleep 10 // Give time for the server to start
-        //             } catch (Exception e) {
-        //                 error "Failed to start server: ${e.message}"
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Start server') {
+             steps {
+                script {
+                     try {
+                         echo 'Starting server...'
+                         sh 'npm start &'
+                         sleep 10 // Give time for the server to start
+                    } catch (Exception e) {
+                         error "Failed to start server: ${e.message}"
+                     }
+                 }
+             }
+         }
 
-        // stage('Deploy to Render') {
-        //     steps {
-        //         script {
-        //             withCredentials([string(credentialsId: 'render_api_key', variable: 'RENDER_API_KEY')]) {
-        //                 try {
-        //                     sh """
-        //                     curl -X POST -H 'Authorization: Bearer ${RENDER_API_KEY}' \
-        //                     -H 'Content-Type: application/json' \
-        //                     -d '{"branch": "master", "env": {"NODE_ENV": "production"}}' \
-        //                     https://api.render.com/v1/services/${RENDER_APP_NAME}/deploy
-        //                     """
-        //                 } catch (Exception e) {
-        //                     error "Deployment to Render failed: ${e.message}"
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
-    }
+        stage('Start server') {
+            steps {
+                 script {
+                     try {
+                        echo 'Starting server...'
+                         sh 'npm start &'
+                         sleep 10 // Give time for the server to start
+                     } catch (Exception e) {
+                         error "Failed to start server: ${e.message}"
+                     }
+                 }
+            }
+         }
+
+
+         stage('Deploy to Render') {
+             steps {
+                 script {
+                     withCredentials([string(credentialsId: 'render_api_key', variable: 'RENDER_API_KEY')]) {
+                         try {
+                             sh """
+                             curl -X POST -H 'Authorization: Bearer ${RENDER_API_KEY}' \
+                             -H 'Content-Type: application/json' \
+                             -d '{"branch": "master", "env": {"NODE_ENV": "production"}}' \
+                             https://api.render.com/v1/services/${RENDER_APP_NAME}/deploy
+                             """
+                         } catch (Exception e) {
+                             error "Deployment to Render failed: ${e.message}"
+                         }
+                     }
+              }
+             }
+        }            
+             
+        
+        
+
+         stage('Deploy to Render') {
+         stage('Start server') {
+             steps {
+                 script {
+                     try {
+                         echo 'Starting server...'
+                         sh 'npm start &'
+                         sleep 10 // Give time for the server to start
+                     } catch (Exception e) {
+                         error "Failed to start server: ${e.message}"
+                    }
+                }
+             }
+         }
+
+         stage('Deploy to Render') {
+            steps {
+                script {
+                     withCredentials([string(credentialsId: 'render_api_key', variable: 'RENDER_API_KEY')]) {
+                        try {
+                             sh """
+                             curl -X POST -H 'Authorization: Bearer ${RENDER_API_KEY}' \
+                             -H 'Content-Type: application/json' \
+                             -d '{"branch": "master", "env": {"NODE_ENV": "production"}}' \
+                            https://api.render.com/v1/services/${RENDER_APP_NAME}/deploy
+                             """
+                         } catch (Exception e) {
+                             error "Deployment to Render failed: ${e.message}"
+                         }
+                     }
+                 }
+             }
+         }    
+        }stage('Start server') {
+            steps {
+                script {
+                     try {
+                        echo 'Starting server...'
+                        sh 'npm start &'
+                         sleep 10 // Give time for the server to start
+                     } catch (Exception e) {
+                        error "Failed to start server: ${e.message}"
+                    }
+                }
+            }
+        }
+
+         stage('Deploy to Render') {
+            steps {
+                script {
+                    withCredentials([string(credentialsId: 'render_api_key', variable: 'RENDER_API_KEY')]) {
+                        try {
+                            sh """
+                             curl -X POST -H 'Authorization: Bearer ${RENDER_API_KEY}' \
+                             -H 'Content-Type: application/json' \
+                             -d '{"branch": "master", "env": {"NODE_ENV": "production"}}' \
+                             https://api.render.com/v1/services/${RENDER_APP_NAME}/deploy
+                             """
+                       } catch (Exception e) {
+                            error "Deployment to Render failed: ${e.message}"
+                        }
+                     }
+                 }
+            }
+         }
     
 }
 
