@@ -38,12 +38,13 @@ pollSCM('0 */4 * * 1-5')
 
   
   stages { 
-    stage('clone repository') {
-      steps { 
-        git branch: 'master', url: 'https://github.com/namengegm/gallery.git'
-      }
-    }
- stage('Install dependencies') {
+            stage("Clone gallery repository") {
+            steps {
+                git branch: 'master', url: 'https://github.com/namengegm/gallery.git'
+            }
+        }
+
+        stage('Install dependencies') {
             steps {
                 script {
                     try {
@@ -54,7 +55,8 @@ pollSCM('0 */4 * * 1-5')
                 }
             }
         }
-  stage('Test project') {
+
+        stage('Test project') {
             steps {
                 script {
                     try {
@@ -67,7 +69,7 @@ pollSCM('0 */4 * * 1-5')
             }
         }
 
-         stage('Build project') {
+        stage('Build project') {
             steps {
                 script {
                     try {
@@ -79,7 +81,8 @@ pollSCM('0 */4 * * 1-5')
                 }
             }
         }
-         stage('Start server') {
+
+        stage('Start server') {
             steps {
                 script {
                     try {
@@ -112,42 +115,7 @@ pollSCM('0 */4 * * 1-5')
             }
         }
     }
-        always {
-            script {
-                if (currentBuild.result == 'FAILURE') {
-                    emailext (
-                        to: "${EMAIL_RECIPIENT}",
-                        subject: "Jenkins Build Failed: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
-                        body: """
-                        <p>The Jenkins build <b>${env.JOB_NAME} ${env.BUILD_NUMBER}</b> has failed.</p>
-                        <p>Please check the Jenkins console output for more details: ${env.BUILD_URL}</p>
-                        """
-                    )
-                }
-            }
-        }
-
-  }
-
-      post {
-        success {
-            emailext attachLog: true, 
-                body: EMAIL_BODY, 
-
-                subject: EMAIL_SUBJECT_SUCCESS,
-
-                to: EMAIL_RECEPIENT
-        }
-
-        failure {
-            emailext attachLog: true, 
-                body: EMAIL_BODY, 
-
-                subject: EMAIL_SUBJECT_FAILURE, 
-
-                to: EMAIL_RECEPIENT
-        }
-    }
+    
 }
 
 
