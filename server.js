@@ -8,23 +8,20 @@ const config = require('./_config');
 let index = require('./routes/index');
 let image = require('./routes/image');
 
-// Initializing the app
-const app = express();
+// Use the appropriate URI based on your environment (production, development, test)
+const mongoURI = process.env.NODE_ENV === 'production' ? config.mongoURI.production : config.mongoURI.development;
 
-// connecting the database
-let mongodb_url = 'mongodb://localhost:27017/';
-let dbName = 'darkroom';
-mongoose.connect(`${mongodb_url}${dbName}`,{ useNewUrlParser: true , useUnifiedTopology: true }, (err)=>{
-    if (err) console.log(err)
+// Connecting to MongoDB
+mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
+
+// Check for MongoDB connection errors
+let db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once('open', () => {
+    console.log('Connected to MongoDB');
 });
 
-// test if the database has connected successfully
-let db = mongoose.connection;
-db.once('open', ()=>{
-    console.log('Database connected successfully')
-})
-
-// Initializing the app
+// Initialize Express app
 const app = express();
 
 // View Engine setup (assuming you are using EJS based on your setup)
@@ -45,3 +42,5 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server is listening at http://localhost:${PORT}`)
 });
+
+module.exports = app; // Export app for testing
